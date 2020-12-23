@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <%- include("components/header.ejs"); %>
+</head>
+
+<body>
+    <%- include("components/NavBar.ejs", { logo, funding, github }); %>
+
+    <section class="hero is-medium is-danger is-bold">
+        <div class="hero-body has-text-centered">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-3">
+                        <a href="https://youtu.be/<%= details.videoId %>" target="__blank">
+                            <figure class="image">
+                                <img src="<%= thumbnail.url %>" style="border-radius: 0.5rem;">
+                            </figure>
+                        </a>
+                    </div>
+                    <div class="column" style="margin: auto;">
+                        <a class="title is-spaced" style="display: block;"
+                            href="https://youtu.be/<%= details.videoId %>" target="__blank">
+                            <%= details.title %>
+                        </a>
+                        <a class="subtitle" style="display: block;" href="<%= details.author.channel_url %>">
+                            <%= details.author.name %>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <div class="level">
+                <div class="level-item has-text-centered">
+                    <div>
+                        <p class="heading">Likes</p>
+                        <p class="title">
+                            <%= details.likes %>
+                        </p>
+                    </div>
+                </div>
+                <div class="level-item has-text-centered">
+                    <div>
+                        <p class="heading">Dislikes</p>
+                        <p class="title">
+                            <%= details.dislikes %>
+                        </p>
+                    </div>
+                </div>
+                <div class="level-item has-text-centered">
+                    <div>
+                        <p class="heading">Views</p>
+                        <p class="title">
+                            <%= details.viewCount %>
+                        </p>
+                    </div>
+                </div>
+                <div class="level-item has-text-centered">
+                    <div>
+                        <p class="heading">Published on</p>
+                        <p class="title">
+                            <%= details.publishDate %>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <% if (!isLive) { %>
+            <hr>
+            <h1 class="title">Formats</h1>
+            <table class="table is-striped is-fullwidth">
+                <thead>
+                    <tr>
+                        <th class="has-text-centered">
+                            Label
+                        </th>
+                        <th class="has-text-centered">
+                            Quality
+                        </th>
+                        <th class="has-text-centered">
+                            FPS
+                        </th>
+                        <th class="has-text-centered">
+                            Resolution
+                        </th>
+                        <th class="has-text-centered">
+                            Download
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (const format of formats) { %>
+                        <tr>
+                            <td class="has-text-centered is-capitalized">
+                                <%= format.quality %>
+                            </td>
+                            <td class="has-text-centered">
+                                <%= format.qualityLabel %>
+                            </td>
+                            <td class="has-text-centered">
+                                <%= format.fps %>
+                            </td>
+                            <td class="has-text-centered">
+                                <%= format.width %>x<%= format.height %>
+                            </td>
+                            <td class="has-text-centered">
+                                <% const
+                                    downloadURL=`/youtube/download?id=${details.videoId}&itag=${format.itag}&filename=${encodeURIComponent(details.title
+                                    + " by " + details.author.name)}` %>
+                                    <a class="button is-success" href="<%= `${downloadURL}&audioOnly=false` %>">
+                                        Video + Audio
+                                    </a>
+                                    <a class="button is-success" href="<%= `${downloadURL}&audioOnly=true` %>">
+                                        Audio Only
+                                    </a>
+                            </td>
+                        </tr>
+                        <% } %>
+                </tbody>
+            </table>
+            <% } else { %>
+                <article class="message is-danger">
+                    <div class="message-body">
+                        <strong>Livestreams</strong> cannot be downloaded!
+                    </div>
+                </article>
+            <% } %>
+            <hr>
+            <h1 class="title">Similar Videos</h1>
+            <% for (const video of related) { %>
+                <a class="columns" href="./<%= video.id %>">
+                    <div class="column is-2">
+                        <figure class="image">
+                            <img src="<%= video.thumbnails[0].url %>" style="border-radius: 0.5rem;">
+                        </figure>
+                    </div>
+                    <div class="column has-text-dark" style="margin: auto;">
+                        <p class="is-size-5"><%= video.title %></p>
+                        <p><%= video.author.name %></p>
+                        <p><i class="fas fa-eye"></i> <%= video.short_view_count_text %> | <i class="fas fa-upload"></i> <%= video.published %></p>
+                    </div>
+                </a>
+            <% } %>
+        </div>
+    </section>
+        
+    <%- include("components/Footer.ejs", { logo, funding, github }); %>
+</body>
+
+</html>

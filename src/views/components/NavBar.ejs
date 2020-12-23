@@ -1,0 +1,30 @@
+<nav>
+    <p>
+        <a class="has-text-danger" href="/"><strong>Home</strong></a>
+    </p>
+    <p>
+        <a class="has-text-danger" href="/"><strong>Download</strong></a>
+    </p>
+    <p>
+        <a class="has-text-danger" href="/" style="font-size: 2.5rem;">
+            <!-- <i class="fas fa-save fa-3x"></i> -->
+            <strong><%= logo %></strong>
+        </a>
+    </p>
+    <p>
+        <a class="has-text-danger" href="<%= funding %>"><strong>Donate</strong></a>
+    </p>
+    <p>
+        <a class="has-text-danger" href="<%= github %>"><strong>GitHub</strong></a>
+    </p>
+</nav>
+
+<style scoped>
+    nav {
+        padding: 1rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
+</style>
