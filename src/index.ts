@@ -24,7 +24,14 @@ const init = async () => {
         middlewares: [
             express.json(),
             express.urlencoded({ extended: true }),
-            helmet()
+            helmet({
+                contentSecurityPolicy: {
+                    directives: {
+                        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+                        "img-src": ["'self'", "i.ytimg.com"]
+                    }
+                }
+            })
         ],
         controllers: [
             MainController,
