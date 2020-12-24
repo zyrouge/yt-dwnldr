@@ -1,5 +1,6 @@
 import * as dotenv from "dotenv";
 import express from "express";
+import helmet from "helmet";
 import { App, createPlugin, createSetter } from "./core/server";
 import Logger from "./utils/Logger";
 
@@ -22,7 +23,8 @@ const init = async () => {
         port: parseInt(process.env.PORT!),
         middlewares: [
             express.json(),
-            express.urlencoded({ extended: true })
+            express.urlencoded({ extended: true }),
+            helmet()
         ],
         controllers: [
             MainController,

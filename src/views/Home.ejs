@@ -20,35 +20,14 @@
                     <%= title %>
                 </h1>
                 <input id="url-box" class="input" type="text" placeholder="Enter a YouTube Video URL...">
-                <button id="search-btn" type="submit" class="button is-light" style="margin-top: 1rem;"
-                    onclick="return search();">Fetch</button>
+                <button id="search-btn" type="submit" class="button is-light" style="margin-top: 1rem;">Fetch</button>
             </div>
         </div>
     </section>
 
     <%- include("components/Notifications.ejs") %>
 
-        <script defer>
-            const YOUTUBE_REGEX = /^https?:\/\/(?:(?:www|m)\.)?(?:youtube\.com\/watch(?:\?v=|\?.+?&v=)|youtu\.be\/)([a-z0-9_-]+)$/i;
-            const YOUTUBE_ID_REP = /^https?:\/\/(?:(?:www|m)\.)?(?:youtube\.com\/watch(?:\?v=|\?.+?&v=)|youtu\.be\/)/i;
-            const DANGER_CLASS = "is-danger";
-            const INFO_URL = "/youtube/id/";
-
-            const urlInput = document.getElementById("url-box");
-            const searchBtn = document.getElementById("search-btn");
-
-            async function search() {
-                const url = urlInput.value;
-                if (!YOUTUBE_REGEX.test(url)) {
-                    notify(DANGER_CLASS, "Invalid YouTube video URL");
-                    urlInput.classList.add(DANGER_CLASS);
-                    return;
-                }
-                if (urlInput.classList.contains(DANGER_CLASS)) urlInput.classList.remove(DANGER_CLASS);
-                const id = url.replace(YOUTUBE_ID_REP, "");
-                location.href = INFO_URL + id;
-            }
-        </script>
+    <script defer src="/static/scripts/Home.js"></script>
         
     <%- include("components/Footer.ejs", { logo, funding, github }); %>
 </body>
