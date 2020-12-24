@@ -10,7 +10,9 @@
     "build": "tsc",
     "dev": "cross-env NODE_ENV=development ts-node-dev --files --project tsconfig.json src/index.ts"
   },
-  "keywords": ["youtube downloader"],
+  "keywords": [
+    "youtube downloader"
+  ],
   "author": "ZYROUGE",
   "license": "MIT",
   "dependencies": {
@@ -21,6 +23,7 @@
     "dotenv": "^8.2.0",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
+    "ffmpeg-static": "^4.2.7",
     "fluent-ffmpeg": "^2.1.2",
     "font-awesome": "^4.7.0",
     "ytdl-core": "^4.2.1"

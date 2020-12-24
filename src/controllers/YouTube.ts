@@ -4,6 +4,8 @@ import ffmpeg from "fluent-ffmpeg";
 import { createRouter } from "../core/server";
 import StatusCodes from "../utils/StatusCodes";
 
+const ffstatic: string = require("ffmpeg-static");
+ffmpeg.setFfmpegPath(ffstatic);
 const router = express.Router();
 
 router.get("/id/:id", async (req, res) => {
