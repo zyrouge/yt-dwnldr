@@ -4,6 +4,8 @@ import helmet from "helmet";
 import { App, createPlugin, createSetter } from "./core/server";
 import Logger from "./utils/Logger";
 
+import LoggerMiddleware from "./middlewares/Logger";
+
 import MainController from "./controllers/Main";
 import YouTubeController from "./controllers/YouTube";
 import StaticController from "./controllers/Static";
@@ -31,7 +33,8 @@ const init = async () => {
                         "img-src": ["'self'", "i.ytimg.com"]
                     }
                 }
-            })
+            }),
+            LoggerMiddleware
         ],
         controllers: [
             MainController,
