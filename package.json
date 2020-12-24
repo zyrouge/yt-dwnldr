@@ -7,7 +7,7 @@
   "scripts": {
     "prestart": "npm run build",
     "start": "cross-env NODE_ENV=production node .",
-    "build": "tsc",
+    "build": "rimraf -rf dist && tsc && node ./scripts/CopyFiles",
     "dev": "cross-env NODE_ENV=development ts-node-dev --files --project tsconfig.json src/index.ts"
   },
   "keywords": [
@@ -26,12 +26,14 @@
     "ffmpeg-static": "^4.2.7",
     "fluent-ffmpeg": "^2.1.2",
     "font-awesome": "^4.7.0",
+    "rimraf": "^3.0.2",
     "ytdl-core": "^4.2.1"
   },
   "devDependencies": {
     "@types/express": "^4.17.9",
     "@types/fluent-ffmpeg": "^2.1.16",
     "@types/node": "^14.14.14",
+    "fs-extra": "^9.0.1",
     "nodemon": "^2.0.6",
     "ts-node": "^9.1.1",
     "ts-node-dev": "^1.1.1",
