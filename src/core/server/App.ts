@@ -38,9 +38,9 @@ export default class App {
         this.port = config.port;
 
         this.middlewares(config.middlewares);
-        this.controllers(config.controllers);
-        this.plugins(config.plugins);
         this.setters(config.setters);
+        this.plugins(config.plugins);
+        this.controllers(config.controllers);
     }
 
     private middlewares(middlewares: express.RequestHandler[]) {

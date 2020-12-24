@@ -6,6 +6,7 @@ import Logger from "./utils/Logger";
 import MainController from "./controllers/Main";
 import YouTubeController from "./controllers/YouTube";
 import StaticController from "./controllers/Static";
+import ErrorController from "./controllers/Error";
 
 dotenv.config({ path: `${__dirname}/../.env.${process.env.NODE_ENV}` });
 process.env.BASE_URL = `${process.env.NODE_ENV === "production" ? "https" : "http"}://${process.env.HOST}:${process.env.PORT}`;
@@ -26,7 +27,8 @@ const init = async () => {
         controllers: [
             MainController,
             YouTubeController,
-            StaticController
+            StaticController,
+            ErrorController
         ],
         plugins: [
             createPlugin("/static", express.static(__dirname + "/static"))
