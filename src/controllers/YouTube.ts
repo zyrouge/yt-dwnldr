@@ -121,7 +121,7 @@ router.get("/download/", async (req, res) => {
             });
 
         const stream = ytdl(id, { format: itag as any });
-        stream.on("error", (err) => { Logger.error(err); });
+        stream.on("error", (err) => { Logger.error(err.toString()); });
         if (!stream) return res
             .status(StatusCodes.BAD_REQUEST)
             .render("Error.ejs", {
@@ -134,7 +134,7 @@ router.get("/download/", async (req, res) => {
             });
 
         const output = ffmpeg(stream);
-        output.on("error", (err) => { Logger.error(err); });
+        output.on("error", (err) => { Logger.error(err.toString()); });
 
         if (audioOnly) {
             res.setHeader("Content-disposition", `attachment; filename=${filename}.mp3`);
