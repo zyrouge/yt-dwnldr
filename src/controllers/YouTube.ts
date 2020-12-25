@@ -2,7 +2,7 @@ import express from "express";
 import ytdl from "ytdl-core";
 import ffmpeg from "fluent-ffmpeg";
 import { createRouter } from "../core/server";
-import Logger from "../utils/StatusCodes";
+import Logger from "../utils/Logger";
 import StatusCodes from "../utils/StatusCodes";
 
 const ffstatic: string = require("ffmpeg-static");
