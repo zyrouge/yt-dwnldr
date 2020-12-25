@@ -2,6 +2,7 @@ import express from "express";
 import ytdl from "ytdl-core";
 import ffmpeg from "fluent-ffmpeg";
 import { createRouter } from "../core/server";
+import Logger from "../utils/StatusCodes";
 import StatusCodes from "../utils/StatusCodes";
 
 const ffstatic: string = require("ffmpeg-static");
@@ -120,7 +121,7 @@ router.get("/download/", async (req, res) => {
             });
 
         const stream = ytdl(id, { format: itag as any });
-        stream.on("error", () => { });
+        stream.on("error", (err) => { Logger.error(err); });
         if (!stream) return res
             .status(StatusCodes.BAD_REQUEST)
             .render("Error.ejs", {
@@ -133,7 +134,7 @@ router.get("/download/", async (req, res) => {
             });
 
         const output = ffmpeg(stream);
-        output.on("error", () => { });
+        output.on("error", (err) => { Logger.error(err); });
 
         if (audioOnly) {
             res.setHeader("Content-disposition", `attachment; filename=${filename}.mp3`);
