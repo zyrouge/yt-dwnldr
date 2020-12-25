@@ -135,7 +135,13 @@ router.get("/download/", async (req, res) => {
 
         const output = ffmpeg(stream);
         output.on("error", (err) => { Logger.error(err.toString()); });
+        output.on("close", () => {
+            if (!stream.destroyed) stream.destroy();
+            output.kill("SIGSTOP");
+        });
 
+        output.audioCodec("libmp3lame");
+        output.audioBitrate(128);
         if (audioOnly) {
             res.setHeader("Content-disposition", `attachment; filename=${filename}.mp3`);
             res.set("Content-Type", "audio/mp3");
