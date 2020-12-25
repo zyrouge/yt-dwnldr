@@ -140,7 +140,8 @@ router.get("/download/", async (req, res) => {
             output.kill("SIGSTOP");
         });
 
-        output.audioCodec("libmp3lame");
+        output.videoCodec("libx264");
+        output.audioCodec("aac");
         output.audioBitrate(128);
         if (audioOnly) {
             res.setHeader("Content-disposition", `attachment; filename=${filename}.mp3`);
